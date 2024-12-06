@@ -57,7 +57,6 @@ export const PriceJob = ({text, id}: PriceJobProps) => {
             onChangeText={(text) => setInitialPrice(text)} 
             onEndEditing={() => savePrice(initialPrice)}
           />
-          <Text style={{ color: 'white', fontSize: 12}}>{id}</Text>
       </View>
       <HorizontalLine 
         width={270} 

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         // textAlignVertical: 'center',
         // margin: 5,
-        color: 'white',
+        color: globalColors.white,
         fontSize: 20,
     }
 });

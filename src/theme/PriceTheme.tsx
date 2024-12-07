@@ -14,20 +14,20 @@ export const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        color: 'white',
+        color: globalColors.white,
         fontSize: 32,
         marginTop: 24,
-        borderBottomColor: 'white',
+        borderBottomColor: globalColors.white,
         borderBottomWidth: 1,
     },
     text: {
         textAlign: 'center',
-        color: 'white',
+        color: globalColors.white,
         fontSize: 24,
         width: 210,
     },
     input: {
-        backgroundColor: "white", 
+        backgroundColor: globalColors.white, 
         height: 26,
         width: 100,
         margin: 8,
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        // backgroundColor: 'white',
+        // backgroundColor: globalColors.white,
     },
     buttonScreen: {
         borderRadius: 8,

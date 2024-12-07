@@ -72,13 +72,13 @@ export const SelectJobScreen = () => {
   },[jobVisible])
 
   const renderJobs = ({ item }: { item: string }) => (
-    <Text style={{ color: 'white', fontSize: 16, paddingHorizontal: 20 }}> {'\u2022'} {item}</Text>
+    <Text style={{ color: globalColors.white, fontSize: 16, paddingHorizontal: 20 }}> {'\u2022'} {item}</Text>
   );
 
   const renderCategory = ({ item }: { item: { category: string; jobs: string[] } }) => (
     <View style={{ marginTop: 8 }}>
         <Text style={ styles.titleModal }>{item.category}</Text>
-        <HorizontalLine color='white'/>
+        <HorizontalLine color={globalColors.white}/>
       <FlatList
         data={item.jobs}
         renderItem={renderJobs}
@@ -107,13 +107,13 @@ export const SelectJobScreen = () => {
                     onPress={() => navigation.navigate('Calculate')}
                     style={styles.buttonCloseModal}
                     >
-                    <Text style={{textAlign: 'center', color: 'white', fontSize: 16}}>aceptar</Text>
+                    <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>aceptar</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => setCloseVisible(!closeVisible)}
                     style={styles.buttonCloseModal}
                     >
-                    <Text style={{textAlign: 'center', color: 'white', fontSize: 16}}>cancelar</Text>
+                    <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>cancelar</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -133,7 +133,7 @@ export const SelectJobScreen = () => {
         <View style={ styles.modalBackground }>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={{color: 'white', fontSize: 20, borderBottomWidth: 1, borderBottomColor: 'white', marginBottom: 10, fontWeight: 'bold'}}>SELECCIONADOS</Text>
+              <Text style={{color: globalColors.white, fontSize: 20, borderBottomWidth: 1, borderBottomColor: globalColors.white, marginBottom: 10, fontWeight: 'bold'}}>SELECCIONADOS</Text>
                     <FlatList
                       data={selectedJobs}
                       renderItem={renderCategory}
@@ -144,13 +144,13 @@ export const SelectJobScreen = () => {
                   onPress={() => setJobVisible(!jobVisible)}
                   style={styles.buttonModal}
                   >
-                  <Text style={{textAlign: 'center', color: 'white', fontSize: 16}}>Seguir Seleccionando</Text>
+                  <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>Seguir Seleccionando</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => setCloseVisible(!closeVisible)}
                   style={styles.buttonModal}
                   >
-                  <Text style={{textAlign: 'center', color: 'white', fontSize: 16}}>Terminar y Calcular</Text>
+                  <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>Terminar y Calcular</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -173,13 +173,13 @@ export const SelectJobScreen = () => {
           onPress={ () => setJobVisible(true)}
           style={styles.buttonScreen}
         >
-          <Text style={{textAlign: 'center', color: 'white', fontSize: 22}}>Ver Seleccionados</Text>
+          <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>Ver Seleccionados</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setCloseVisible(true)}
           style={styles.buttonScreen}
         >
-          <Text style={{textAlign: 'center', color: 'white', fontSize: 22}}>Terminar y Calcular</Text>
+          <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>Terminar y Calcular</Text>
         </TouchableOpacity>
       </View>
     </>

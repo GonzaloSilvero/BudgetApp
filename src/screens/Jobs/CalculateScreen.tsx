@@ -92,7 +92,7 @@ export const CalculateScreen = () => {
   const renderCategory = ({ item }: { item: { category: string; jobs: string[] } }) => (
     <View style={{ marginTop: 8 }}>
         <Text style={ styles.categoria }>{item.category}</Text>
-        <HorizontalLine color='white' mb={8}/>
+        <HorizontalLine color={globalColors.white} mb={8}/>
       <FlatList
         data={item.jobs}
         renderItem={renderJobs}
@@ -134,7 +134,7 @@ export const CalculateScreen = () => {
         <TouchableOpacity
           onPress={ () => navigation.navigate('Staff')}
           style={styles.buttonScreen}>
-          <Text style={{textAlign: 'center', color: 'white', fontSize: 22}}>PERSONAL</Text>
+          <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>PERSONAL</Text>
         </TouchableOpacity>
       </View>
     </View>

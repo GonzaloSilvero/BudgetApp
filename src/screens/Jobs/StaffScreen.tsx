@@ -27,7 +27,7 @@ export const StaffScreen = () => {
                 onPress={ () => navigation.navigate('Budget')}
                 style={styles.buttonScreen}
             >
-                <Text style={{textAlign: 'center', color: 'white', fontSize: 22}}>PRESUPUESTAR</Text>
+                <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>PRESUPUESTAR</Text>
             </TouchableOpacity>
         </View>
     </View>

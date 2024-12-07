@@ -55,7 +55,7 @@ export const BudgetScreen = () => {
 
   const renderJobs = ({ item }: { item: string }) => (
     <>
-      <Text style={{ color: 'white', fontSize: 16, paddingHorizontal: 20, marginBottom: 8 }}>{'\u2022'} {item}</Text>
+      <Text style={{ color: globalColors.white, fontSize: 16, paddingHorizontal: 20, marginBottom: 8 }}>{'\u2022'} {item}</Text>
       <HorizontalLine />
     </>
   );
@@ -66,7 +66,7 @@ export const BudgetScreen = () => {
         data={item.jobs}
         renderItem={renderJobs}
       />
-      <HorizontalLine color='white'/>
+      <HorizontalLine color={globalColors.white}/>
     </View>
   );
 
@@ -119,7 +119,7 @@ export const BudgetScreen = () => {
             {/* COLUMNA TRABAJO */}
             <View style={{ flex: 1}}>
               <Text style={ styles.textColumns }>TRABAJO</Text>
-              <HorizontalLine width={100} color='white' height={1} mb={16}/>
+              <HorizontalLine width={100} color={globalColors.white} height={1} mb={16}/>
               <FlatList
               data={selectedJobs}
               renderItem={render}
@@ -127,12 +127,12 @@ export const BudgetScreen = () => {
             </View>
 
             {/* SEPARADOR */}
-            <VerticalLine color='white' height={20}/>
+            <VerticalLine color={globalColors.white} height={20}/>
 
             {/* COLUMNA CANTIDAD */}
             <View style={{ flex: 0.5}}>
               <Text style={ styles.textColumns }>CANT</Text>
-              <HorizontalLine width={50} color='white' height={1} mb={16}/>
+              <HorizontalLine width={50} color={globalColors.white} height={1} mb={16}/>
               <FlatList
               data={selectedJobs}
               renderItem={render}
@@ -140,12 +140,12 @@ export const BudgetScreen = () => {
             </View>
 
             {/* SEPARADOR */}
-            <VerticalLine color='white' height={20}/>
+            <VerticalLine color={globalColors.white} height={20}/>
             
             {/* COLUMNA PRECIO */}
             <View style={{ flex: 0.8}}>
               <Text style={ styles.textColumns }>PRECIO</Text>
-              <HorizontalLine width={70} color='white' height={1} mb={16}/>
+              <HorizontalLine width={70} color={globalColors.white} height={1} mb={16}/>
               <FlatList
               data={selectedJobs}
               renderItem={render}

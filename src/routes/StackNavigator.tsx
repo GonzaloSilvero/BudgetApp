@@ -23,7 +23,7 @@ export const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={{ 
         headerStyle: { backgroundColor: globalColors.background },
-        headerTintColor: 'white',
+        headerTintColor: globalColors.white,
         headerTitleAlign: 'center',
         headerLeft: () => ( <HamburgerMenu />)
       }}

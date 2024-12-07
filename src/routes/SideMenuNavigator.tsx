@@ -17,12 +17,12 @@ export const SideMenuNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerTintColor: 'white',
+        headerTintColor: globalColors.white,
         headerTitleAlign: 'center',
         headerStyle: { backgroundColor: globalColors.background },
         drawerStyle: { backgroundColor: globalColors.secondary },
-        drawerInactiveTintColor: 'white',
-        drawerActiveTintColor: 'white',
+        drawerInactiveTintColor: globalColors.white,
+        drawerActiveTintColor: globalColors.white,
       }}
     >
     <Drawer.Screen 

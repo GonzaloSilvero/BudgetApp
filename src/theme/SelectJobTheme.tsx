@@ -14,13 +14,13 @@ export const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        color: 'white',
+        color: globalColors.white,
         fontSize: 32,
         marginTop: 24
     },
     text: {
         textAlign: 'left',
-        color: 'white',
+        color: globalColors.white,
         fontSize: 24,
         width: 300,
     },
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        // backgroundColor: 'white',
+        // backgroundColor: globalColors.white,
     },
     buttonModal: {
         borderRadius: 8,
@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     titleModal: {
-        color: 'white',
+        color: globalColors.white,
         fontSize: 20,
         textAlign: 'center',
         fontWeight: 'bold',
@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
         marginHorizontal: 8
     },
     textClose: {
-        color:  'white',
+        color:  globalColors.white,
         fontSize: 18,
         textAlign: 'center',
         fontWeight: 'semibold'

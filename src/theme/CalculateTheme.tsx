@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     textReference: {
-        color: 'white', 
+        color: globalColors.white, 
         fontSize: 20, 
         flex: 1, 
         textAlign: 'center', 
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     categoria: {
         fontSize: 28,
         marginTop: 16,
-        color: 'white',
+        color: globalColors.white,
         textAlign: 'center',
         fontWeight: 'bold',
     },
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
         fontSize: 24, 
         paddingHorizontal: 20,
         marginTop: 4,
-        color: 'white', 
+        color: globalColors.white, 
         textAlign: 'center',
     },
     containerInputs: {
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
         marginBottom: 4,
         fontSize: 18,
         padding: 2,
-        backgroundColor: "white", 
+        backgroundColor: globalColors.white, 
         alignSelf: 'center',
         color: 'black',
         textAlign: 'center',
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        // backgroundColor: 'white',
+        // backgroundColor: globalColors.white,
     },
     buttonScreen: {
         borderRadius: 8,

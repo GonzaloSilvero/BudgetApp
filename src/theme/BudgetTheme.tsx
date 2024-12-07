@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
         backgroundColor: globalColors.primary,
     },
     textReference: {
-        color: 'white', 
+        color: globalColors.white, 
         fontSize: 20, 
         flex: 1, 
         textAlign: 'center', 
@@ -44,12 +44,12 @@ export const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     textColumns: {
-        color: 'white',
+        color: globalColors.white,
         textAlign: 'center',
         fontSize: 18
     },
     titleModal: {
-        color: 'white',
+        color: globalColors.white,
         fontSize: 20,
         textAlign: 'center',
         fontWeight: 'bold',

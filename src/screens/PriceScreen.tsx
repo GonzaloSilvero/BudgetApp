@@ -27,7 +27,7 @@ export const PriceScreen = () => {
       }}>
 
         <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: 'white', fontSize: scroll !== 0 ? 15 : 30}}>cada cuantos días</Text>
+          <Text style={{color: globalColors.white, fontSize: scroll !== 0 ? 15 : 30}}>cada cuantos días</Text>
           <TextInput 
           style={{ ...styles.input, width: 50}}
           keyboardType='numeric'
@@ -35,7 +35,7 @@ export const PriceScreen = () => {
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: 'white', fontSize: scroll !== 0 ? 15 : 30}}>aumento%</Text>
+          <Text style={{color: globalColors.white, fontSize: scroll !== 0 ? 15 : 30}}>aumento%</Text>
           <TextInput 
           style={{ ...styles.input, width: 50}}
           keyboardType='numeric'
@@ -54,8 +54,8 @@ export const PriceScreen = () => {
         renderItem={({ item: categoryItem, index: categoryIndex }) => (
           <View>
             <View style={{marginVertical: 24}}>
-              <Text style={{color: 'white', fontSize: 28, textAlign: 'center', marginBottom: 8}}>{categoryItem}</Text>
-              <HorizontalLine color='white' width={300}/>
+              <Text style={{color: globalColors.white, fontSize: 28, textAlign: 'center', marginBottom: 8}}>{categoryItem}</Text>
+              <HorizontalLine color={globalColors.white} width={300}/>
             </View>
             <FlatList
               data={JobsMatrix[categoryIndex]}
@@ -73,7 +73,7 @@ export const PriceScreen = () => {
 
         <TouchableOpacity
           style={styles.buttonScreen}>
-          <Text style={{textAlign: 'center', color: 'white', fontSize: 22}}>Guardar</Text>
+          <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>Guardar</Text>
         </TouchableOpacity>
       </View> */}
     </View> 

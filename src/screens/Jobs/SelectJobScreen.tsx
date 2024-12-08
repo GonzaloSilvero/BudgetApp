@@ -32,8 +32,9 @@ export const SelectJobScreen = () => {
 
     // funcion aasincronica para cargar la info guardada en asyncStorage
     const fetchData = async () => {
-      const data = await LoadData() // guardar en data el return de la info del asyncStorage
-      
+      const filterData = await LoadData() // guardar en data el return de la info del asyncStorage
+      const data = filterData.filter(item => item.state === true)
+
       // el objeto se inicializa vacio pero va a tratar las claves como strings
       const jobsByCategory: { [key: string]: string[] } = {};
       

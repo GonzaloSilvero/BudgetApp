@@ -7,15 +7,36 @@ import { CategoriesArray } from '../data/CategoriesArray'
 import { JobsMatrix } from '../data/JobsMatrix'
 import { HorizontalLine } from '../components/HorizontalLine'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LoadData } from '../hooks/LoadData';
 
 export const PriceScreen = () => {
 
   const [scroll, setScroll] = useState(0)
+  const [days, setDays] = useState('')
+  const [increase, setIncrease] = useState('')
 
-  useEffect(() => {
-    
-  }, [])
+  const saveDays = async (daysText: string ) => {
+    try {
+
+        await AsyncStorage.setItem(`increase`, JSON.stringify({ days }));
+        setDays(daysText); // Actualiza el estado local
+        console.log('Precio guardado:', { days, increase });
+
+    } catch (error) {
+      console.error('Error al inicializar los elementos:', error);
+    }
+  };
+
+  const saveIncrease = async (increaseText: string ) => {
+    try {
+
+      await AsyncStorage.setItem(`increase`, JSON.stringify({ increase }));
+      setIncrease(increaseText); // Actualiza el estado local
+      console.log('Precio guardado:', { days, increase });
+
+    } catch (error) {
+      console.error('Error al inicializar los elementos:', error);
+    }
+  };
 
   return (
     <View style={ globalStyles.container }>
@@ -27,18 +48,40 @@ export const PriceScreen = () => {
       }}>
 
         <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: globalColors.white, fontSize: scroll !== 0 ? 15 : 30}}>cada cuantos días</Text>
+          <Text style={{
+            color: globalColors.white, 
+            fontSize: scroll !== 0 ? 15 : 30
+          }}>cada cuantos días</Text>
           <TextInput 
-          style={{ ...styles.input, width: 50}}
+          style={{ 
+            ...styles.input, 
+            width: scroll !== 0 ? 40 : 50,
+            fontSize: scroll !== 0 ? 12 : 18,
+            height: scroll !== 0 ? 22 : 26
+          }}
           keyboardType='numeric'
+          value={days}
+          onChangeText={(text) => setDays(text)} 
+          onEndEditing={() => saveDays(days)}
           />
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: globalColors.white, fontSize: scroll !== 0 ? 15 : 30}}>aumento%</Text>
+          <Text style={{
+            color: globalColors.white, 
+            fontSize: scroll !== 0 ? 15 : 30
+          }}>aumento%</Text>
           <TextInput 
-          style={{ ...styles.input, width: 50}}
+          style={{ 
+            ...styles.input, 
+            width: scroll !== 0 ? 40 : 50,
+            fontSize: scroll !== 0 ? 12 : 18,
+            height: scroll !== 0 ? 22 : 26
+          }}
           keyboardType='numeric'
+          value={increase}
+          onChangeText={(text) => setIncrease(text)} 
+          onEndEditing={() => saveIncrease(increase)}
           />
         </View>
 

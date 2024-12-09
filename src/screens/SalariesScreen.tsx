@@ -6,6 +6,7 @@ import { styles } from '../theme/SalariesTheme'
 import { InputSalaries } from '../components/InputSalaries'
 import { TextInput } from 'react-native-gesture-handler'
 import { NewTask } from '../components/NewTask'
+import { DynamicRenderer } from '../components/DynamicRenderer'
 
 type InputSalariesProps = {
   text: string;
@@ -27,7 +28,7 @@ export const SalariesScreen = () => {
 
   return (
     <>
-    <Modal
+    {/* <Modal
         animationType="fade"
         transparent={true}
         visible={visible}
@@ -53,33 +54,27 @@ export const SalariesScreen = () => {
           </View>
         </View>
       </View>
-    </Modal>
+    </Modal> */}
     <ScrollView style={{ ...globalStyles.container, paddingTop: 50 }}>
-      <InputSalaries text='ENCARGADO' />
-      <InputSalaries text='OFICIAL ESP' />
-      <InputSalaries text='OFICIAL' />
-      <InputSalaries text='AYUDANTE' />
-      {inputs.map((props, index) => (
-          <InputSalaries key={index} {...props} />
-        ))}
-      <TouchableOpacity
+      <InputSalaries task='ENCARGADO' />
+      <InputSalaries task='OFICIAL ESP' />
+      <InputSalaries task='OFICIAL' />
+      <InputSalaries task='AYUDANTE' />
+      <DynamicRenderer
+      buttonText="Añadir Puesto"
+      modalTitle="Nuevo Puesto"
+      inputPlaceholder="Ingrese el nombre del puesto"
+      renderItem={(index, value) => (
+        <InputSalaries task={value} />
+      )}
+    />
+      {/* <TouchableOpacity
         style={ styles.buttonAdd }
         onPress={ () => setVisible(true)}
       >
         <Text style={ styles.plus }>+</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </ScrollView>
-    {/* <View style={{ 
-        ...styles.containerButtons,
-        backgroundColor: globalColors.secondary,
-        padding: 12
-      }}>
-        <TouchableOpacity
-          onPress={ () => console.log()}
-          style={styles.buttonScreen}>
-          <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>Guardar</Text>
-        </TouchableOpacity>
-      </View> */}
     </>
   )
 }

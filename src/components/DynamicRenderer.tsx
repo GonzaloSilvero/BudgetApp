@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -6,9 +6,11 @@ import {
     TouchableOpacity,
     ScrollView,
     Modal,
+    Keyboard,
 } from 'react-native';
 import { styles } from '../theme/SalariesTheme';
 import { globalColors } from '../theme/GlobalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type DynamicRendererProps = {
   renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
@@ -16,6 +18,8 @@ type DynamicRendererProps = {
   modalTitle?: string; // Título del modal
   inputPlaceholder?: string; // Placeholder del TextInput
 };
+
+const STORAGE_KEY = '@dynamic_items'; // Clave para AsyncStorage
 
 export const DynamicRenderer = ({
     renderItem,
@@ -27,12 +31,38 @@ export const DynamicRenderer = ({
     const [isModalVisible, setModalVisible] = useState(false);
     const [inputValue, setInputValue] = useState<string>("");
 
+      // Cargar datos desde AsyncStorage
+    useEffect(() => {
+        const loadItems = async () => {
+        try {
+            const storedItems = await AsyncStorage.getItem(STORAGE_KEY);
+            if (storedItems) {
+            setItems(JSON.parse(storedItems));
+            }
+        } catch (error) {
+            console.error("Error loading items from storage:", error);
+        }
+        };
+        loadItems();
+    }, []);
+
+    // Guardar datos en AsyncStorage
+    const saveItems = async (newItems: { index: number; value: string }[]) => {
+        try {
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+        } catch (error) {
+        console.error("Error saving items to storage:", error);
+        }
+    };
+
     const addItem = () => {
         if (inputValue.trim()) {
-            setItems((prevItems) => [
-                ...prevItems,
-                { index: prevItems.length, value: inputValue.trim().toUpperCase() },
-            ]);
+            const newItems = [
+                ...items,
+                { index: items.length, value: inputValue.trim().toUpperCase() },
+            ];
+            setItems(newItems);
+            saveItems(newItems); // Guardar la lista actualizada
             setInputValue("");
             setModalVisible(false);
         }
@@ -59,29 +89,38 @@ export const DynamicRenderer = ({
             {/* Modal */}
             <Modal
                 visible={isModalVisible}
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <View style={ styles.modalBackground }>
-                    <View style={styles.centeredView}>
-                        <View style={styles.closeModalView}>
-                            <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>¿Qué puesto le gustaria añadir?</Text>
-                            <TextInput 
-                                style={styles.inputModal}
-                                placeholder='Puesto'
-                                value={inputValue}
-                                onChangeText={setInputValue}
-                            />
-                            <TouchableOpacity
-                                onPress={addItem}
-                                style={styles.buttonCloseModal}
-                            >
-                                <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>Añadir</Text>
-                            </TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                style={{ flex: 1, }}
+                activeOpacity={0}
+                >
+
+                <View style={ styles.modalBackground } >
+                    <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1} style={{backgroundColor: 'white', height: 10}}>
+                        <View style={styles.centeredView}>
+                            <View style={styles.closeModalView}>
+                                <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>{modalTitle}</Text>
+                                <TextInput 
+                                    style={styles.inputModal}
+                                    placeholder={inputPlaceholder}
+                                    value={inputValue}
+                                    onChangeText={setInputValue}
+                                    />
+                                <TouchableOpacity
+                                    onPress={addItem}
+                                    style={styles.buttonCloseModal}
+                                    >
+                                    <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>{buttonText}</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </View>
+                </TouchableOpacity>
             </Modal>
 
         </View>

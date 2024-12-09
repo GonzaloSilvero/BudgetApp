@@ -4,6 +4,9 @@ import { globalColors, globalStyles } from '../../theme/GlobalStyles'
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../../routes/StackNavigator';
 import { styles } from '../../theme/StaffTheme';
+import { ScrollView } from 'react-native-gesture-handler';
+import { AddMemberStaff } from '../../components/AddMemberStaff';
+import { DynamicRenderer } from '../../components/DynamicRenderer';
 
 
 export const StaffScreen = () => {
@@ -12,10 +15,19 @@ export const StaffScreen = () => {
     
     return (
     <View style={ globalStyles.container }>
-        <View style={{flex: 1}}>
-
-        </View>
+        <ScrollView>
+        <AddMemberStaff task='ENCARGADO' />
+        <DynamicRenderer
+            buttonText="Añadir"
+            modalTitle="¿Qué puesto le gustaria añadir?"
+            inputPlaceholder="ingerse puesto"
+            renderItem={(index, value) => (
+                <AddMemberStaff task={value} />
+            )}
+        />
+        </ScrollView>
         
+
         {/* BOTON PRESUPUESTAR */}
         <View style={{ 
         ...styles.containerButtons,

@@ -14,11 +14,29 @@ export const PriceScreen = () => {
   const [days, setDays] = useState('')
   const [increase, setIncrease] = useState('')
 
-  const saveDays = async (daysText: string ) => {
+  useEffect(() => {
+    const loadPrice = async () => {
+      try {
+        const item = await AsyncStorage.getItem('increase'); 
+        if (item) {
+          const parsedItem = JSON.parse(item);
+          setDays(parsedItem.days); // Establece los dias
+          setIncrease(parsedItem.increase); // Establece el incremento
+          console.log(parsedItem)
+        }
+      } catch (error) {
+        console.error('Error al cargar el precio:', error);
+      }
+    };
+
+    loadPrice(); // Llama a la función de carga
+  }, []);
+
+  const saveDays = async (days: string ) => {
     try {
 
-        await AsyncStorage.setItem(`increase`, JSON.stringify({ days }));
-        setDays(daysText); // Actualiza el estado local
+        await AsyncStorage.setItem(`increase`, JSON.stringify({ days, increase }));
+        setDays(days); // Actualiza el estado local
         console.log('Precio guardado:', { days, increase });
 
     } catch (error) {
@@ -26,11 +44,11 @@ export const PriceScreen = () => {
     }
   };
 
-  const saveIncrease = async (increaseText: string ) => {
+  const saveIncrease = async (increase: string ) => {
     try {
 
-      await AsyncStorage.setItem(`increase`, JSON.stringify({ increase }));
-      setIncrease(increaseText); // Actualiza el estado local
+      await AsyncStorage.setItem(`increase`, JSON.stringify({ days, increase }));
+      setIncrease(increase); // Actualiza el estado local
       console.log('Precio guardado:', { days, increase });
 
     } catch (error) {

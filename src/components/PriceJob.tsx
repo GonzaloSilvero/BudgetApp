@@ -53,6 +53,7 @@ export const PriceJob = ({text, id}: PriceJobProps) => {
             style={styles.input}
             keyboardType='numeric'
             placeholder='0'
+            placeholderTextColor={globalColors.placeholder}
             value={initialPrice}
             onChangeText={(text) => setInitialPrice(text)} 
             onEndEditing={() => savePrice(initialPrice)}

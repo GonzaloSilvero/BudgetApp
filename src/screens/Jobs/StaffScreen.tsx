@@ -6,7 +6,7 @@ import { RootStackParams } from '../../routes/StackNavigator';
 import { styles } from '../../theme/StaffTheme';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AddMemberStaff } from '../../components/AddMemberStaff';
-import { DynamicRenderer } from '../../components/DynamicRenderer';
+import { DynamicSelectItem } from '../../components/DynamicSelectItem';
 
 
 export const StaffScreen = () => {
@@ -17,14 +17,13 @@ export const StaffScreen = () => {
     <View style={ globalStyles.container }>
         <ScrollView>
         <AddMemberStaff task='ENCARGADO' />
-        <DynamicRenderer
-            buttonText="Añadir"
-            modalTitle="¿Qué puesto le gustaria añadir?"
-            inputPlaceholder="ingerse puesto"
+        <DynamicSelectItem
+            buttonText=''
+            modalTitle=''
             renderItem={(index, value) => (
-                <AddMemberStaff task={value} />
+                <AddMemberStaff task={value}/>
             )}
-        />
+        ></DynamicSelectItem>
         </ScrollView>
         
 

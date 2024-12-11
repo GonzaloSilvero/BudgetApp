@@ -48,11 +48,8 @@ export const styles = StyleSheet.create({
         paddingTop: 12,
     },
     containerButtons: {
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        // backgroundColor: globalColors.white,
     },
     buttonModal: {
         borderRadius: 8,

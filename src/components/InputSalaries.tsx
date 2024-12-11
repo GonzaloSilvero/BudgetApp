@@ -51,6 +51,7 @@ export const InputSalaries = ({task}: InputSalariesProps) => {
                     style={styles.input}
                     keyboardType='numeric'
                     placeholder='0'
+                    placeholderTextColor={globalColors.placeholder}
                     value={salaries}
                     onChangeText={(text) => setSalaries(text)} 
                     onEndEditing={() => saveSalary(salaries)}

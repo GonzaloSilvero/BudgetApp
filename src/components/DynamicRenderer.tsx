@@ -80,11 +80,11 @@ export const DynamicRenderer = ({
 
             {/* Botón para abrir el modal */}
             <TouchableOpacity
-            style={ styles.buttonAdd }
-            onPress={ () => setModalVisible(true)}
-        >
-            <Text style={ styles.plus }>+</Text>
-        </TouchableOpacity>
+                style={ styles.buttonAdd }
+                onPress={ () => setModalVisible(true)}
+            >
+                <Text style={ styles.plus }>+</Text>
+            </TouchableOpacity>
 
             {/* Modal */}
             <Modal
@@ -100,13 +100,14 @@ export const DynamicRenderer = ({
                 >
 
                 <View style={ styles.modalBackground } >
-                    <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1} style={{backgroundColor: 'white', height: 10}}>
+                    <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1} style={{height: 10}}>
                         <View style={styles.centeredView}>
                             <View style={styles.closeModalView}>
                                 <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>{modalTitle}</Text>
                                 <TextInput 
                                     style={styles.inputModal}
                                     placeholder={inputPlaceholder}
+                                    placeholderTextColor={globalColors.placeholder}
                                     value={inputValue}
                                     onChangeText={setInputValue}
                                     />

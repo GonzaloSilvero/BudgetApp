@@ -78,6 +78,8 @@ export const PriceScreen = () => {
             height: scroll !== 0 ? 22 : 26
           }}
           keyboardType='numeric'
+          placeholder='0'
+          placeholderTextColor={globalColors.placeholder}
           value={days}
           onChangeText={(text) => setDays(text)} 
           onEndEditing={() => saveDays(days)}
@@ -97,6 +99,8 @@ export const PriceScreen = () => {
             height: scroll !== 0 ? 22 : 26
           }}
           keyboardType='numeric'
+          placeholder='0'
+          placeholderTextColor={globalColors.placeholder}
           value={increase}
           onChangeText={(text) => setIncrease(text)} 
           onEndEditing={() => saveIncrease(increase)}

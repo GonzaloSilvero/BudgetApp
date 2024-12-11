@@ -9,11 +9,15 @@ import { VerticalLine } from '../../components/VerticalLine'
 import { HorizontalLine } from '../../components/HorizontalLine'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParams } from '../../routes/StackNavigator'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const CalculateScreen = () => {
 
 
   const categories: number [] = [];
+  const [id, setId] = useState()
+  const [qty, setQty] = useState('')
+  const [days, setDays] = useState('')
   const [selectedJobs, setSelectedJobs] = useState<{ category: string; jobs: string[] }[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -52,22 +56,32 @@ export const CalculateScreen = () => {
       }));
 
       setSelectedJobs(formattedData);
+      
     } 
     fetchData()
   },[])
-
-  // const handleInputChange = async (id: string, field: 'qty' | 'price', value: string) => {
-  //   const updatedJobs = loadPrice.map(item =>
-  //     item.id === id ? { ...item, [field]: value } : item
-  //   );
-
-  //   setLoadPrice(updatedJobs); // Actualiza el estado local
-
-  //   // Guarda los datos actualizados en AsyncStorage
+  
+  // const saveQty = async ( ) => {
   //   try {
-  //     await AsyncStorage.setItem('jobs', JSON.stringify(updatedJobs));
+
+  //     await AsyncStorage.setItem(`increase`, JSON.stringify({ qty, days }));
+  //     setIncrease(increase); // Actualiza el estado local
+  //     console.log('Precio guardado:', { days, increase });
+
   //   } catch (error) {
-  //     console.error('Error al guardar datos:', error);
+  //     console.error('Error al inicializar los elementos:', error);
+  //   }
+  // };
+
+  // const saveDays = async () => {
+  //   try {
+
+  //       await AsyncStorage.setItem(`increase`, JSON.stringify({ qty, days }));
+  //       setDays(days); // Actualiza el estado local
+  //       console.log('Precio guardado:', { qty, days });
+
+  //   } catch (error) {
+  //     console.error('Error al inicializar los elementos:', error);
   //   }
   // };
   
@@ -78,11 +92,21 @@ export const CalculateScreen = () => {
       <TextInput 
         style={ styles.input }
         keyboardType='numeric'
+        placeholder='0'
+        placeholderTextColor={globalColors.placeholder}
+        value={qty}
+        onChangeText={(text) => setQty(text)}
+        onEndEditing={() => console.log(selectedJobs)}
         />
         <VerticalLine height={20}/>
       <TextInput 
         style={ styles.input }
         keyboardType='numeric'
+        placeholder='0'
+        placeholderTextColor={globalColors.placeholder}
+        value={days}
+        onChangeText={(text) => setDays(text)}
+        onEndEditing={() => console.log(selectedJobs)}
         />
     </View>
     <HorizontalLine height={1}/>

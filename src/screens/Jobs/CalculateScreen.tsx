@@ -10,16 +10,37 @@ import { HorizontalLine } from '../../components/HorizontalLine'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParams } from '../../routes/StackNavigator'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { JobItem } from '../../components/JobItem'
 
 export const CalculateScreen = () => {
 
 
   const categories: number [] = [];
-  const [id, setId] = useState()
-  const [qty, setQty] = useState('')
-  const [days, setDays] = useState('')
-  const [selectedJobs, setSelectedJobs] = useState<{ category: string; jobs: string[] }[]>([]);
+  // const [id, setId] = useState()
+  // const [qty, setQty] = useState('')
+  // const [days, setDays] = useState('')
+  const [selectedJobs, setSelectedJobs] = useState<{ category: string; jobs: { id: number; name: string; price: number }[] }[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+  // Generar clave única para cada presupuesto
+  const generateBudgetKey = (id: number) => `budgeted-${id}`;
+
+  // Guardar presupuesto
+  const saveBudgetData = async (id: number, qty: string, days: string, price: number) => {
+    try {
+      const parsedQty = parseInt(qty) || 0;
+      const parsedDays = parseInt(days) || 0;
+      const total = parsedQty * price;
+
+      const budgetKey = generateBudgetKey(id);
+      const budgetData = { id, qty: parsedQty, days: parsedDays, total };
+
+      await AsyncStorage.setItem(budgetKey, JSON.stringify(budgetData));
+      console.log(`Presupuesto guardado para ${budgetKey}:`, budgetData);
+    } catch (error) {
+      console.error('Error al guardar el presupuesto:', error);
+    }
+  };
 
   useEffect(() => { 
     // funcion aasincronica para cargar la info guardada en asyncStorage
@@ -28,7 +49,7 @@ export const CalculateScreen = () => {
       const data = filterData.filter(item => item.state === true)
       // console.log(data)
       // el objeto se inicializa vacio pero va a tratar las claves como strings
-      const jobsByCategory: { [key: string]: string[] } = {};
+      const jobsByCategory: { [key: string]: { id: number; name: string; price: number }[] } = {};
       
       // itera los items del array
       data.forEach(item => {
@@ -36,23 +57,24 @@ export const CalculateScreen = () => {
         const [arrayIndexStr, elementIndexStr] = idStr.split('.');
         const arrayIndex = parseInt(arrayIndexStr)
         const elementIndex = parseInt(elementIndexStr)
-        
-        if(!categories.includes(arrayIndex)){
-          categories.push(arrayIndex)
-        }
 
         const job = JobsMatrix[arrayIndex - 1][elementIndex - 1];
+        const price = item.price; // Recuperar precio desde AsyncStorage
         const category = CategoriesArray[arrayIndex - 1];
-
+        
         if (!jobsByCategory[category]) {
           jobsByCategory[category] = [];
         }
-        jobsByCategory[category].push(job);
+
+        // const job = JobsMatrix[arrayIndex - 1][elementIndex - 1];
+        // const category = CategoriesArray[arrayIndex - 1];
+
+        jobsByCategory[category].push({ id: item.id, name: job, price });
       });
 
-      const formattedData = categories.map(index => ({
-        category: CategoriesArray[index - 1],
-        jobs: jobsByCategory[CategoriesArray[index - 1]] || [],
+      const formattedData = Object.entries(jobsByCategory).map(([category, jobs]) => ({
+        category,
+        jobs,
       }));
 
       setSelectedJobs(formattedData);
@@ -85,46 +107,21 @@ export const CalculateScreen = () => {
   //   }
   // };
   
-  const renderJobs = ({ item }: { item: string }) => (
-    <>
-    <Text style={ styles.jobs }>{item}</Text>
-    <View style={ styles.containerInputs }>
-      <TextInput 
-        style={ styles.input }
-        keyboardType='numeric'
-        placeholder='0'
-        placeholderTextColor={globalColors.placeholder}
-        value={qty}
-        onChangeText={(text) => setQty(text)}
-        onEndEditing={() => console.log(selectedJobs)}
-        />
-        <VerticalLine height={20}/>
-      <TextInput 
-        style={ styles.input }
-        keyboardType='numeric'
-        placeholder='0'
-        placeholderTextColor={globalColors.placeholder}
-        value={days}
-        onChangeText={(text) => setDays(text)}
-        onEndEditing={() => console.log(selectedJobs)}
-        />
-    </View>
-    <HorizontalLine height={1}/>
-    </>
+  const renderJobs = ({ item }: { item: { id: number; name: string; price: number } }) => (
+    <JobItem job={item} />
   );
-
-  const renderCategory = ({ item }: { item: { category: string; jobs: string[] } }) => (
+  
+  const renderCategory = ({ item }: { item: { category: string; jobs: { id: number; name: string; price: number }[] } }) => (
     <View style={{ marginTop: 8 }}>
-        <Text style={ styles.categoria }>{item.category}</Text>
-        <HorizontalLine color={globalColors.white} mb={8}/>
+      <Text style={styles.categoria}>{item.category}</Text>
+      <HorizontalLine color={globalColors.white} mb={8} />
       <FlatList
         data={item.jobs}
         renderItem={renderJobs}
-        keyExtractor={(job, index) => `job-${index}`}
+        keyExtractor={(job) => `job-${job.id}`}
       />
     </View>
   );
-
 
   return (
     // CONTAINER

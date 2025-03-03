@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 
 export const globalColors = {
-    background: 'hsl(40,50%,35%)',
-    secondary: 'hsl(40,50%,55%)',
-    primary: 'hsl(40,50%,65%)',
+    background: 'hsl(0,50%,35%)',
+    secondary: 'hsl(0,50%,55%)',
+    primary: 'hsl(0,50%,65%)',
     white: '#f0f0f0',
     placeholder: '#B9B9B9FF'
 };

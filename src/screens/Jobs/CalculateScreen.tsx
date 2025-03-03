@@ -16,39 +16,19 @@ export const CalculateScreen = () => {
 
 
   const categories: number [] = [];
-  // const [id, setId] = useState()
-  // const [qty, setQty] = useState('')
-  // const [days, setDays] = useState('')
   const [selectedJobs, setSelectedJobs] = useState<{ category: string; jobs: { id: number; name: string; price: number }[] }[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
   // Generar clave única para cada presupuesto
-  const generateBudgetKey = (id: number) => `budgeted-${id}`;
-
-  // Guardar presupuesto
-  const saveBudgetData = async (id: number, qty: string, days: string, price: number) => {
-    try {
-      const parsedQty = parseInt(qty) || 0;
-      const parsedDays = parseInt(days) || 0;
-      const total = parsedQty * price;
-
-      const budgetKey = generateBudgetKey(id);
-      const budgetData = { id, qty: parsedQty, days: parsedDays, total };
-
-      await AsyncStorage.setItem(budgetKey, JSON.stringify(budgetData));
-      console.log(`Presupuesto guardado para ${budgetKey}:`, budgetData);
-    } catch (error) {
-      console.error('Error al guardar el presupuesto:', error);
-    }
-  };
+  const generateBudgetKey = (id: number) => `${id}-budgeted`;
 
   useEffect(() => { 
     // funcion aasincronica para cargar la info guardada en asyncStorage
     const fetchData = async () => {
-      const filterData = await LoadData() // guardar en data el return de la info del asyncStorage
-      const data = filterData.filter(item => item.state === true)
-      // console.log(data)
-      // el objeto se inicializa vacio pero va a tratar las claves como strings
+      const { originalItems } = await LoadData() // guardar en data el return de la info del asyncStorage
+      const data = originalItems.filter(item => item.state === true)
+      
+      // el objeto se inicializa vacio 
       const jobsByCategory: { [key: string]: { id: number; name: string; price: number }[] } = {};
       
       // itera los items del array
@@ -57,7 +37,7 @@ export const CalculateScreen = () => {
         const [arrayIndexStr, elementIndexStr] = idStr.split('.');
         const arrayIndex = parseInt(arrayIndexStr)
         const elementIndex = parseInt(elementIndexStr)
-
+        
         const job = JobsMatrix[arrayIndex - 1][elementIndex - 1];
         const price = item.price; // Recuperar precio desde AsyncStorage
         const category = CategoriesArray[arrayIndex - 1];
@@ -65,48 +45,47 @@ export const CalculateScreen = () => {
         if (!jobsByCategory[category]) {
           jobsByCategory[category] = [];
         }
-
-        // const job = JobsMatrix[arrayIndex - 1][elementIndex - 1];
-        // const category = CategoriesArray[arrayIndex - 1];
-
+        
         jobsByCategory[category].push({ id: item.id, name: job, price });
       });
-
+      
       const formattedData = Object.entries(jobsByCategory).map(([category, jobs]) => ({
         category,
         jobs,
       }));
-
+      
       setSelectedJobs(formattedData);
       
     } 
     fetchData()
   },[])
-  
-  // const saveQty = async ( ) => {
-  //   try {
 
-  //     await AsyncStorage.setItem(`increase`, JSON.stringify({ qty, days }));
-  //     setIncrease(increase); // Actualiza el estado local
-  //     console.log('Precio guardado:', { days, increase });
+  const calculateAndNavigate = async () => {
+    try {
+      const { budgetedItems } = await LoadData()
+      console.log(budgetedItems)
+      
+      // Acumular los totales de los trabajos
+      let totalPriceBudget = 0;
+      budgetedItems.forEach(item => {
+        totalPriceBudget += item.total;  // Sumar el total de cada trabajo
+      });
 
-  //   } catch (error) {
-  //     console.error('Error al inicializar los elementos:', error);
-  //   }
-  // };
+       // Acumular los totales de los trabajos
+      let totalDaysBudget = 0;
+      budgetedItems.forEach(item => {
+       totalDaysBudget += item.days;  // Sumar el total de los dias
+      });
+      
+      // Guardar el total acumulado 
+      await AsyncStorage.setItem('total-budget', JSON.stringify({ total: totalPriceBudget, days: totalDaysBudget }));
+      
+      navigation.navigate('Staff');
+    } catch (error) {
+      console.error('Error al calcular el total:', error)
+    }
+  }
 
-  // const saveDays = async () => {
-  //   try {
-
-  //       await AsyncStorage.setItem(`increase`, JSON.stringify({ qty, days }));
-  //       setDays(days); // Actualiza el estado local
-  //       console.log('Precio guardado:', { qty, days });
-
-  //   } catch (error) {
-  //     console.error('Error al inicializar los elementos:', error);
-  //   }
-  // };
-  
   const renderJobs = ({ item }: { item: { id: number; name: string; price: number } }) => (
     <JobItem job={item} />
   );
@@ -153,7 +132,7 @@ export const CalculateScreen = () => {
         padding: 12
       }}>
         <TouchableOpacity
-          onPress={ () => navigation.navigate('Staff')}
+          onPress={calculateAndNavigate}
           style={styles.buttonScreen}>
           <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 22}}>PERSONAL</Text>
         </TouchableOpacity>

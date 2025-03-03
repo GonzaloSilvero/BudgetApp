@@ -11,7 +11,9 @@ export const GenericsScreen = () => {
         ...styles.container,
         ...globalStyles.container,
       }}>
-        <JobsButton text='GESTIONES PREVIAS A OBRA'/>
+        <JobsButton 
+          text='GESTIONES PREVIAS A OBRA'
+          onClick={() => console.log('en mantenimiento')}/>
       </View>
     </ScrollView>
   )

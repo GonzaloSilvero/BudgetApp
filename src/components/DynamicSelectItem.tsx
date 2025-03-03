@@ -11,22 +11,14 @@ import {
 } from 'react-native';
 import { styles } from '../theme/StaffTheme';
 import { Picker } from '@react-native-picker/picker';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { globalColors } from '../theme/GlobalStyles';
 
 const { height: screenHeight } = Dimensions.get('window');
 
-type DynamicSelectItemProps = {
-  renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
-  buttonText?: string; // Texto del botón principal
-  modalTitle?: string; // Título del modal
-};
 
-const STORAGE_KEY = '@dynamic_items'; // Clave para AsyncStorage
-
-export const DynamicSelectItem = ({
-    renderItem,
-    buttonText = "Agregar",
-    modalTitle = "Añadir elemento",
-}: DynamicSelectItemProps) => {
+export const DynamicSelectItem = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string | null>(null);
     const [isPickerOpen, setPickerOpen] = useState(false);
@@ -35,22 +27,16 @@ export const DynamicSelectItem = ({
 
     return (
         <View style={styles.dynamicContainer}>
-            {/* Botón para abrir el modal */}
-            {/* <TouchableOpacity
-                style={styles.openModalButton}
-                onPress={() => setModalVisible(true)}
-            >
-                <Text style={styles.buttonText}>Abrir Modal</Text>
-            </TouchableOpacity> */}
 
+            {/* BOTON PARA ABRIR MODAL */}
             <TouchableOpacity
                 style={ styles.buttonAdd }
                 onPress={ () => setModalVisible(true)}
             >
-                <Text style={ styles.plus }>+</Text>
+                <FontAwesomeIcon icon={faUserPlus} color={globalColors.white} size={28} style={{ top: 2, left: 2}}/>
             </TouchableOpacity>
 
-            {/* Modal */}
+            {/* MODAL */}
             <Modal
                 visible={isModalVisible}
                 animationType="fade"

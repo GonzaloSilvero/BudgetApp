@@ -21,10 +21,10 @@ export const SelectJobCheck = ({text, id}: SelectJobCheckProps) => {
   useEffect(() => {
     
     const fetchData = async () => {
-      const data = await LoadData() //carga los datos del Async
-      console.log('Datos cargados: ', data) 
+      const { originalItems } = await LoadData() //carga los datos del Async
+      console.log('Datos cargados: ', originalItems) 
 
-      const savedCheckBox = data.find( item => item.id === `${id}`) //busca los id de los items guardados en el Async
+      const savedCheckBox = originalItems.find( item => item.id === `${id}`) //busca los id de los items guardados en el Async
       console.log(savedCheckBox)
       if (savedCheckBox) { //si existe el item
         setCheck(savedCheckBox.state) //determinar el estado del checkbox en base al state guardado en el Async

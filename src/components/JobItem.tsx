@@ -4,6 +4,7 @@ import { VerticalLine } from "./VerticalLine";
 import { styles } from "../theme/CalculateTheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
+import { globalColors } from "../theme/GlobalStyles";
 
 export const JobItem = ({ job }: { job: { id: number; name: string; price: number } }) => {
     const [qty, setQty] = useState('');
@@ -12,7 +13,7 @@ export const JobItem = ({ job }: { job: { id: number; name: string; price: numbe
     useEffect(() => {
       // Recuperar datos guardados para este job
         const loadBudgetData = async () => {
-            const budgetKey = `budgeted-${job.id}`;
+            const budgetKey = `${job.id}-budgeted`;
             const savedData = await AsyncStorage.getItem(budgetKey);
 
             if (savedData) {
@@ -48,6 +49,8 @@ export const JobItem = ({ job }: { job: { id: number; name: string; price: numbe
             <TextInput
                 style={styles.input}
                 keyboardType="numeric"
+                placeholder='0'
+                placeholderTextColor={globalColors.placeholder}
                 value={qty}
                 onChangeText={(text) => setQty(text)}
                 onEndEditing={saveBudgetData}
@@ -56,6 +59,8 @@ export const JobItem = ({ job }: { job: { id: number; name: string; price: numbe
             <TextInput
                 style={styles.input}
                 keyboardType="numeric"
+                placeholder='0'
+                placeholderTextColor={globalColors.placeholder}
                 value={days}
                 onChangeText={(text) => setDays(text)}
                 onEndEditing={saveBudgetData}

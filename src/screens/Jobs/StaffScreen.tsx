@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { globalColors, globalStyles } from '../../theme/GlobalStyles'
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../../routes/StackNavigator';
@@ -7,23 +7,28 @@ import { styles } from '../../theme/StaffTheme';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AddMemberStaff } from '../../components/AddMemberStaff';
 import { DynamicSelectItem } from '../../components/DynamicSelectItem';
+import { LoadData } from '../../hooks/LoadData';
 
 
 export const StaffScreen = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { budgetedItems, totalBudget } = await LoadData()
+            console.log(budgetedItems, totalBudget)
+        }
+
+        fetchData()
+    }, [])
+    
     
     return (
     <View style={ globalStyles.container }>
         <ScrollView>
         <AddMemberStaff task='ENCARGADO' />
-        <DynamicSelectItem
-            buttonText=''
-            modalTitle=''
-            renderItem={(index, value) => (
-                <AddMemberStaff task={value}/>
-            )}
-        ></DynamicSelectItem>
+        <DynamicSelectItem></DynamicSelectItem>
         </ScrollView>
         
 

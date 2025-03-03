@@ -15,43 +15,43 @@ export const BudgetScreen = () => {
   const categories: number [] = [];
   const [selectedJobs, setSelectedJobs] = useState<{ category: string; jobs: string[] }[]>([]);
 
-  useEffect(() => { 
-    // funcion aasincronica para cargar la info guardada en asyncStorage
-    const fetchData = async () => {
-      const data = await LoadData() // guardar en data el return de la info del asyncStorage
+  // useEffect(() => { 
+  //   // funcion aasincronica para cargar la info guardada en asyncStorage
+  //   const fetchData = async () => {
+  //     const data = await LoadData() // guardar en data el return de la info del asyncStorage
       
-      // el objeto se inicializa vacio pero va a tratar las claves como strings
-      const jobsByCategory: { [key: string]: string[] } = {};
+  //     // el objeto se inicializa vacio pero va a tratar las claves como strings
+  //     const jobsByCategory: { [key: string]: string[] } = {};
       
-      // itera los items del array
-      data.forEach(item => {
-        const idStr = item.id.toString();
-        const [arrayIndexStr, elementIndexStr] = idStr.split('.');
-        const arrayIndex = parseInt(arrayIndexStr)
-        const elementIndex = parseInt(elementIndexStr)
+  //     // itera los items del array
+  //     data.forEach(item => {
+  //       const idStr = item.id.toString();
+  //       const [arrayIndexStr, elementIndexStr] = idStr.split('.');
+  //       const arrayIndex = parseInt(arrayIndexStr)
+  //       const elementIndex = parseInt(elementIndexStr)
         
-        if(!categories.includes(arrayIndex)){
-          categories.push(arrayIndex)
-        }
+  //       if(!categories.includes(arrayIndex)){
+  //         categories.push(arrayIndex)
+  //       }
 
-        const job = JobsMatrix[arrayIndex - 1][elementIndex - 1];
-        const category = CategoriesArray[arrayIndex - 1];
+  //       const job = JobsMatrix[arrayIndex - 1][elementIndex - 1];
+  //       const category = CategoriesArray[arrayIndex - 1];
 
-        if (!jobsByCategory[category]) {
-          jobsByCategory[category] = [];
-        }
-        jobsByCategory[category].push(job);
-      });
+  //       if (!jobsByCategory[category]) {
+  //         jobsByCategory[category] = [];
+  //       }
+  //       jobsByCategory[category].push(job);
+  //     });
 
-      const formattedData = categories.map(index => ({
-        category: CategoriesArray[index - 1],
-        jobs: jobsByCategory[CategoriesArray[index - 1]] || [],
-      }));
+  //     const formattedData = categories.map(index => ({
+  //       category: CategoriesArray[index - 1],
+  //       jobs: jobsByCategory[CategoriesArray[index - 1]] || [],
+  //     }));
 
-      setSelectedJobs(formattedData);
-    } 
-    fetchData()
-  },[])
+  //     setSelectedJobs(formattedData);
+  //   } 
+  //   fetchData()
+  // },[])
 
   const renderJobs = ({ item }: { item: string }) => (
     <>

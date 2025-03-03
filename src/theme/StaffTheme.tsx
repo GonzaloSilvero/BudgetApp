@@ -4,56 +4,6 @@ import { globalColors } from "./GlobalStyles";
 const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-    // SELECCION DE PRESUPUESTO
-    // selectBudget: {
-    //     height: 56,
-    //     width: width * 0.85,
-    //     marginBottom: 8,
-    //     borderRadius: 20,
-    //     paddingHorizontal: 12,
-    //     backgroundColor: globalColors.secondary,
-    //     alignSelf: 'center',
-    //     alignItems: 'center',
-    //     flexDirection: 'row',
-    // },
-    // buttonBudget: {
-    //     flex: 1,
-    //     marginVertical: 8,
-    //     borderRadius: 20,
-    //     backgroundColor: globalColors.primary,
-    // },
-    // textReference: {
-    //     color: globalColors.white, 
-    //     fontSize: 20, 
-    //     flex: 1, 
-    //     textAlign: 'center', 
-    //     textAlignVertical: 'center',
-    // },
-
-    // PRESUPUESTO POR SUELDOS
-    // GRAFICO TORTA
-
-
-    // PRESUPUESTOS POR TRABAJO
-    // containerJobs: {
-    //     width: width * 0.85,
-    //     height: height * 0.70,
-    //     borderRadius: 20,
-    //     backgroundColor: globalColors.secondary,
-    //     alignSelf: 'center',
-    //     flexDirection: 'row'
-    // // },
-    // textColumns: {
-    //     color: globalColors.white,
-    //     textAlign: 'center',
-    //     fontSize: 18
-    // },
-    // titleModal: {
-    //     color: globalColors.white,
-    //     fontSize: 20,
-    //     textAlign: 'center',
-    //     fontWeight: 'bold',
-    // },
     
     containerButtons: {
         flexDirection: 'row',
@@ -75,8 +25,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         // flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        width: '100%',
+        justifyContent: 'space-evenly',
+        // width: '100%',
         height: 60,
         // alignSelf: "center",
         marginVertical: 4,
@@ -84,6 +34,7 @@ export const styles = StyleSheet.create({
         // padding: 8,
         alignItems: 'center',
         // alignContent: 'center',
+        margin: 8,
         
     },
     text: {
@@ -91,8 +42,8 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         // backgroundColor: 'green',
         fontSize: 32,
-        width: 210,
-        flex: 1.2,
+        width: 'auto',
+        // flex: 1.2,
         margin: 8
     },
     input: {
@@ -100,7 +51,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         color: 'black',
         textAlign: 'center',
-        height: 26,
+        height: 32,
         width: 100,
         margin: 8,
         fontSize: 18,
@@ -210,22 +161,6 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    // openModalButton: {
-    //     backgroundColor: '#007BFF',
-    //     paddingVertical: 10,
-    //     paddingHorizontal: 20,
-    //     borderRadius: 8,
-    // },
-    // buttonText: {
-    //     color: 'white',
-    //     fontSize: 16,
-    // },
-    // modalBackground: {
-    //     flex: 1,
-    //     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    // },
     modalContainer: {
         backgroundColor: globalColors.secondary,
         borderRadius: 10,
@@ -255,4 +190,18 @@ export const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
     },
+    containerAllDays: {
+        width: 100,
+        backgroundColor: 'blue',
+        height: 60
+    },
+    allDays: {
+        backgroundColor: '#000',
+        // width: 100,
+        height: 40,
+        width: 40,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });

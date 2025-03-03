@@ -12,12 +12,12 @@ interface HorizontalLineProps {
 }
 
 export const HorizontalLine = ({
-    color= globalColors.primary, 
-    width= 200, 
-    height= 2,
-    mb= 0,
-    mt= 0,
-    m= 0,
+    color = globalColors.primary, 
+    width = 200, 
+    height = 2,
+    mb = 0,
+    mt = 0,
+    m = 0,
 }: HorizontalLineProps) => {
     return (
         <View style={{ 

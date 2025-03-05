@@ -11,21 +11,19 @@ import {
 import { styles } from '../theme/SalariesTheme';
 import { globalColors } from '../theme/GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 type DynamicRendererProps = {
-  renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
-  buttonText?: string; // Texto del botón principal
-  modalTitle?: string; // Título del modal
-  inputPlaceholder?: string; // Placeholder del TextInput
+    renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
+    refresh: boolean;
 };
 
-const STORAGE_KEY = '@dynamic_items'; // Clave para AsyncStorage
+const itemsKey = 'dynamicItems'; // Clave para AsyncStorage
 
 export const DynamicRenderer = ({
     renderItem,
-    buttonText = "Agregar",
-    modalTitle = "Añadir elemento",
-    inputPlaceholder = "Ingrese un valor",
+    refresh 
 }: DynamicRendererProps) => {
     const [items, setItems] = useState<{ index: number; value: string }[]>([]);
     const [isModalVisible, setModalVisible] = useState(false);
@@ -35,7 +33,7 @@ export const DynamicRenderer = ({
     useEffect(() => {
         const loadItems = async () => {
         try {
-            const storedItems = await AsyncStorage.getItem(STORAGE_KEY);
+            const storedItems = await AsyncStorage.getItem(itemsKey);
             if (storedItems) {
             setItems(JSON.parse(storedItems));
             }
@@ -44,12 +42,12 @@ export const DynamicRenderer = ({
         }
         };
         loadItems();
-    }, []);
+    }, [refresh]);
 
     // Guardar datos en AsyncStorage
     const saveItems = async (newItems: { index: number; value: string }[]) => {
         try {
-        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
+        await AsyncStorage.setItem(itemsKey, JSON.stringify(newItems));
         } catch (error) {
         console.error("Error saving items to storage:", error);
         }
@@ -66,6 +64,7 @@ export const DynamicRenderer = ({
             setInputValue("");
             setModalVisible(false);
         }
+        console.log(items)
     };
 
     return (
@@ -73,7 +72,7 @@ export const DynamicRenderer = ({
             {/* Lista dinámica */}
             <ScrollView>
                 {items.map(({ index, value }) => (
-                    <View key={index}>{renderItem(index, value)}</View>
+                    <View key={value}>{renderItem(index, value)}</View>
                 ))}
             </ScrollView>
 
@@ -83,7 +82,7 @@ export const DynamicRenderer = ({
                 style={ styles.buttonAdd }
                 onPress={ () => setModalVisible(true)}
             >
-                <Text style={ styles.plus }>+</Text>
+                <FontAwesomeIcon icon={faPlus} color={globalColors.white} size={24}/>
             </TouchableOpacity>
 
             {/* Modal */}
@@ -103,10 +102,10 @@ export const DynamicRenderer = ({
                     <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1} style={{height: 10}}>
                         <View style={styles.centeredView}>
                             <View style={styles.closeModalView}>
-                                <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>{modalTitle}</Text>
+                                <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>¿Qué puesto le gustaria añadir?</Text>
                                 <TextInput 
                                     style={styles.inputModal}
-                                    placeholder={inputPlaceholder}
+                                    placeholder={"ingerse puesto"}
                                     placeholderTextColor={globalColors.placeholder}
                                     value={inputValue}
                                     onChangeText={setInputValue}
@@ -115,7 +114,7 @@ export const DynamicRenderer = ({
                                     onPress={addItem}
                                     style={styles.buttonCloseModal}
                                     >
-                                    <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>{buttonText}</Text>
+                                    <Text style={{textAlign: 'center', color: globalColors.white, fontSize: 16}}>Añadir</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

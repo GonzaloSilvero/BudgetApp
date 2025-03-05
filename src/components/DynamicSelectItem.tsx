@@ -17,8 +17,16 @@ import { globalColors } from '../theme/GlobalStyles';
 
 const { height: screenHeight } = Dimensions.get('window');
 
+type DynamicSelectItemProps = {
+  renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
 
-export const DynamicSelectItem = () => {
+};
+
+const STORAGE_KEY = '@dynamic_items'; // Clave para AsyncStorage
+
+export const DynamicSelectItem = ({
+    renderItem,
+}: DynamicSelectItemProps) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string | null>(null);
     const [isPickerOpen, setPickerOpen] = useState(false);

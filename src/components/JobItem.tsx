@@ -13,7 +13,7 @@ export const JobItem = ({ job }: { job: { id: number; name: string; price: numbe
     useEffect(() => {
       // Recuperar datos guardados para este job
         const loadBudgetData = async () => {
-            const budgetKey = `${job.id}-budgeted`;
+            const budgetKey = `budgeted-${job.id}`;
             const savedData = await AsyncStorage.getItem(budgetKey);
 
             if (savedData) {

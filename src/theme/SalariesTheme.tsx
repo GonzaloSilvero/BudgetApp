@@ -7,10 +7,12 @@ export const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        width: 350,
+        justifyContent: 'center',
+        width: 370,
         alignSelf: "center",
         marginVertical: 4,
+        // backgroundColor: 'yellow',
+        flex: 1
     },
     text: {
         textAlign: 'center',
@@ -19,6 +21,18 @@ export const styles = StyleSheet.create({
         width: 210,
     },
     input: {
+        backgroundColor: globalColors.white, 
+        height: 26,
+        width: 100,
+        margin: 8,
+        alignSelf: 'center',
+        fontSize: 18,
+        color: 'black',
+        padding: 2,
+        textAlign: 'center',
+        marginRight: 18
+    },
+    inputDel: {
         backgroundColor: globalColors.white, 
         height: 26,
         width: 100,

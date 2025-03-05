@@ -23,14 +23,15 @@ export const PriceJob = ({text, id}: PriceJobProps) => {
         if (item) {
           const parsedItem = JSON.parse(item);
           setInitialPrice(parsedItem.price.toString()); // Establece el precio en el estado
-        }
+        } 
+        setInitialPrice('')
       } catch (error) {
         console.error('Error al cargar el precio:', error);
       }
     };
 
     loadPrice(); // Llama a la función de carga
-  }, [id]);
+  }, []);
   
   const savePrice = async (currentPrice: string ) => {
     try {

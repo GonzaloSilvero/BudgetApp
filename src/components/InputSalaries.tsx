@@ -52,7 +52,8 @@ export const InputSalaries = ({task, del, onTaskDeleted}: InputSalariesProps) =>
     const deleteTask = async () => {
         try {
             const tasksString  = await AsyncStorage.getItem('dynamicItems')
-            console.log(tasksString , task)
+            const taskSalaryStr = await AsyncStorage.getItem(`task-${task}`)
+            console.log(taskSalaryStr)
             if (tasksString ){
                 const tasks: { index: number; value: string }[] = JSON.parse(tasksString);
                 const filteredTasks  = tasks
@@ -60,8 +61,11 @@ export const InputSalaries = ({task, del, onTaskDeleted}: InputSalariesProps) =>
 
                 await AsyncStorage.setItem('dynamicItems', JSON.stringify(filteredTasks))
             }
+            if (taskSalaryStr){
+                await AsyncStorage.removeItem(`task-${task}`)
+            }
             if (onTaskDeleted){
-                onTaskDeleted()
+                onTaskDeleted();
             }
         } catch (error) {
             console.log('error al borrar la task: ', error)
@@ -70,40 +74,26 @@ export const InputSalaries = ({task, del, onTaskDeleted}: InputSalariesProps) =>
 
     return (
         <>
-            {del ?
-                <View style={styles.container}>
-                    <Text style={styles.text}>{task}</Text>
-                    <TextInput 
-                        style={styles.inputDel}
-                        keyboardType='numeric'
-                        placeholder='0'
-                        placeholderTextColor={globalColors.placeholder}
-                        value={salaries}
-                        onChangeText={(text) => setSalaries(text)}
-                        onEndEditing={() => saveSalary(salaries)}
-                    />
-                    <View style={{justifyContent: 'center', }}>
-                        <TouchableOpacity
-                            onPress={deleteTask}
-                        >
-                            <FontAwesomeIcon icon={faTrash} color={globalColors.secondary} size={24} style={{marginHorizontal: 4}}/>
-                        </TouchableOpacity>
-                    </View> 
-                </View>
-            : 
-                <View style={styles.container}>
-                    <Text style={styles.text}>{task}</Text>
-                    <TextInput 
-                        style={styles.input}
-                        keyboardType='numeric'
-                        placeholder='0'
-                        placeholderTextColor={globalColors.placeholder}
-                        value={salaries}
-                        onChangeText={(text) => setSalaries(text)}
-                        onEndEditing={() => saveSalary(salaries)}
-                    />
-                </View>
-            }
+            <View style={styles.container}>
+                <Text style={styles.text}>{task}</Text>
+                <TextInput 
+                    style={styles.inputDel}
+                    keyboardType='numeric'
+                    placeholder='0'
+                    placeholderTextColor={globalColors.placeholder}
+                    value={salaries}
+                    onChangeText={(text) => setSalaries(text)}
+                    onEndEditing={() => saveSalary(salaries)}
+                />
+                <View style={{justifyContent: 'center', }}>
+                    <TouchableOpacity
+                        onPress={deleteTask}
+                    >
+                        <FontAwesomeIcon icon={faTrash} color={globalColors.secondary} size={24} style={{marginHorizontal: 4}}/>
+                    </TouchableOpacity>
+                </View> 
+            </View>
+            
             <HorizontalLine 
             width={270} 
             color={globalColors.secondary}

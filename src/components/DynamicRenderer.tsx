@@ -17,13 +17,15 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 type DynamicRendererProps = {
     renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
     refresh: boolean;
+    addTask?: () => void;
 };
 
 const itemsKey = 'dynamicItems'; // Clave para AsyncStorage
 
 export const DynamicRenderer = ({
     renderItem,
-    refresh 
+    refresh,
+    addTask
 }: DynamicRendererProps) => {
     const [items, setItems] = useState<{ index: number; value: string }[]>([]);
     const [isModalVisible, setModalVisible] = useState(false);
@@ -36,7 +38,7 @@ export const DynamicRenderer = ({
             const storedItems = await AsyncStorage.getItem(itemsKey);
             if (storedItems) {
             setItems(JSON.parse(storedItems));
-            }
+            } 
         } catch (error) {
             console.error("Error loading items from storage:", error);
         }
@@ -65,17 +67,18 @@ export const DynamicRenderer = ({
             setModalVisible(false);
         }
         console.log(items)
+        if (addTask){
+            addTask();
+        }
     };
 
     return (
         <View>
-            {/* Lista dinámica */}
             <ScrollView>
                 {items.map(({ index, value }) => (
                     <View key={value}>{renderItem(index, value)}</View>
                 ))}
             </ScrollView>
-
 
             {/* Botón para abrir el modal */}
             <TouchableOpacity

@@ -27,8 +27,7 @@ export const IncreasePrices = () => {
             console.log("Fecha recuperada:", new Date(savedTime));
             
             const currentTime = Date.now(); // Timestamp actual
-            const daysPassed = (currentTime - savedTime) / (1000 * 60 * 60 & 24); // Convertir ms a días
-            
+            const daysPassed = (currentTime - savedTime) / (1000 * 60 * 60 * 24); // Convertir ms a días
             
             const increaseData = await AsyncStorage.getItem('increase');
             if (!increaseData) return false; // Si no hay datos de aumento, no actualizar

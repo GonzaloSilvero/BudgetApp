@@ -66,10 +66,10 @@ export const MenuScreen = () => {
 
             const {updateDataIfNeeded} = IncreasePrices();
 
-            // setTimeout(() => {
-            //     setRefresh(!refresh)
-            //     console.log('refresh')
-            // }, 10000)
+            setTimeout(() => {
+                setRefresh(!refresh)
+                console.log('refresh')
+            }, 10000)
             
             updateDataIfNeeded()
             LoadPrices();

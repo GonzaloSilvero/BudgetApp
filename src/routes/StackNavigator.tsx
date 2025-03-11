@@ -6,8 +6,13 @@ import { JobsScreen } from '../screens/Jobs/JobsScreen';
 import { globalColors } from '../theme/GlobalStyles';
 import { HamburgerMenu } from '../components/HamburgerMenu';
 import { StaffScreen } from '../screens/Jobs/StaffScreen';
+import { ClientDataScreen } from '../screens/ClientDataScreen';
+import { MenuScreen } from '../screens/MenuScreen';
+import { StackNavigatorMenu } from './StackNavigatorMenu';
 
 export type RootStackParams = {
+  Menu: undefined,
+  ClientData: undefined,
   Jobs: undefined,
   SelectJob: {id: number, name: string},
   Calculate: undefined,
@@ -28,6 +33,7 @@ export const StackNavigator = () => {
         headerLeft: () => ( <HamburgerMenu />)
       }}
     >
+      <Stack.Screen name="ClientData" component={ClientDataScreen} options={{title: 'DATOS DEL CLIENTE'}}/>
       <Stack.Screen name="Jobs" component={JobsScreen} options={{title: 'CATEGORIAS'}}/>
       <Stack.Screen name="SelectJob" component={SelectJobScreen} />
       <Stack.Screen name="Calculate" component={CalculateScreen} options={{title: 'CALCULAR'}}/>

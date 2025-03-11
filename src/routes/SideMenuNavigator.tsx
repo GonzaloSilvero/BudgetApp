@@ -31,10 +31,10 @@ export const SideMenuNavigator = () => {
       options={{headerShown: false}}
       />
 
-    <Drawer.Screen name="Genericos" component={GenericsScreen} />
+    {/* <Drawer.Screen name="Genericos" component={GenericsScreen} /> */}
     <Drawer.Screen name="Precios" component={PriceScreen} /> 
     <Drawer.Screen name="Sueldos" component={SalariesScreen} /> 
-    <Drawer.Screen name="Presupuestos anteriores" component={LastBudgetsScreen} /> 
+    <Drawer.Screen name="PresupuestosAnteriores" component={LastBudgetsScreen} /> 
     <Drawer.Screen name="Temas" component={ThemeScreen} /> 
     </Drawer.Navigator>
   );

@@ -4,8 +4,10 @@ export const globalColors = {
     background: 'hsl(0,50%,35%)',
     secondary: 'hsl(0,50%,55%)',
     primary: 'hsl(0,50%,65%)',
+    priority: 'hsl(0,85%,60%)',
     white: '#f0f0f0',
-    placeholder: '#B9B9B9FF'
+    placeholder: '#B9B9B9FF',
+    disabled: '#9B9B9BFF'
 };
 
 export const globalStyles = StyleSheet.create({

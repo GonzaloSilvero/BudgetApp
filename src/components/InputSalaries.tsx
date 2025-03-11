@@ -23,7 +23,7 @@ export const InputSalaries = ({task, del, onTaskDeleted}: InputSalariesProps) =>
     useEffect(() => {
         const loadPrice = async () => {
             try {
-                const item = await AsyncStorage.getItem(task); // Busca por la clave del id
+                const item = await AsyncStorage.getItem(`task-${task}`); // Busca por la clave del id
                 if (item) {
                     const parsedItem = JSON.parse(item);
                     setSalaries(parsedItem.salary.toString()); // Establece el precio en el estado

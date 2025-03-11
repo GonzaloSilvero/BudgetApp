@@ -46,8 +46,8 @@ export const SalariesScreen = () => {
         {renderTask 
         ?
         <View>
-          <Text style={{color: 'white', fontSize: 32, alignSelf: 'center', textAlign: 'center'}}>Agregar puesto de trabajo</Text>
-          <Text style={{color: 'white', fontSize: 18, alignSelf: 'center', textAlign: 'center'}}>(No olvides agregate a vos mismo como minimo)</Text>
+          <Text style={{color: 'white', fontSize: 32, alignSelf: 'center', textAlign: 'center'}}>Agregue puesto de trabajo y su sueldo por dia</Text>
+          <Text style={{color: 'white', fontSize: 18, alignSelf: 'center', textAlign: 'center'}}>(No olvides agregate{"\n"} a vos mismo como minimo)</Text>
           <DynamicRenderer
             refresh={refresh}
             addTask={handleRefresh}

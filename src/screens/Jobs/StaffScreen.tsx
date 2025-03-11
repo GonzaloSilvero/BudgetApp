@@ -27,8 +27,12 @@ export const StaffScreen = () => {
     return (
     <View style={ globalStyles.container }>
         <ScrollView>
-        <AddMemberStaff task='ENCARGADO' />
-        <DynamicSelectItem></DynamicSelectItem>
+        {/* <AddMemberStaff task='ENCARGADO' /> */}
+        <DynamicSelectItem 
+            renderItem={(index, value) => (
+                <AddMemberStaff task={value} />
+            )}
+        />
         </ScrollView>
         
 

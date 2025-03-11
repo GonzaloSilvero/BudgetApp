@@ -77,14 +77,18 @@ export const LoadData = async () => {
       const increaseData = await AsyncStorage.getItem('increase');
       const increase = increaseData ? JSON.parse(increaseData) : '';
 
+      // Obtener el total acumulado desde AsyncStorage (si existe)
+      const saveDate = await AsyncStorage.getItem('savedDate');
+      // const date = saveDate ? JSON.parse(saveDate) : '';
+
       // Retornamos los datos de trabajos originales y presupuestados
-      return { originalItems, budgetedItems, totalBudget, increase, taskItems };
+      return { originalItems, budgetedItems, totalBudget, increase, taskItems, saveDate };
     } else {
       console.log('No data found');
-      return { originalItems: [], budgetedItems: [],  totalBudget: '', increase: '', taskItems: [] };
+      return { originalItems: [], budgetedItems: [],  totalBudget: '', increase: '', taskItems: [], date: ''};
     }
   } catch (error) {
     console.error('Failed to load data', error);
-    return { originalItems: [], budgetedItems: [],  totalBudget: '', increase: '', taskItems: [] };
+    return { originalItems: [], budgetedItems: [],  totalBudget: '', increase: '', taskItems: [], date: ''};
   }
 };

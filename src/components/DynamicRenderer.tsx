@@ -12,7 +12,7 @@ import { styles } from '../theme/SalariesTheme';
 import { globalColors } from '../theme/GlobalStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 type DynamicRendererProps = {
     renderItem: (index: number, value: string) => JSX.Element; // Función para renderizar el componente dinámico
@@ -37,7 +37,7 @@ export const DynamicRenderer = ({
         try {
             const storedItems = await AsyncStorage.getItem(itemsKey);
             if (storedItems) {
-            setItems(JSON.parse(storedItems));
+                setItems(JSON.parse(storedItems));
             } 
         } catch (error) {
             console.error("Error loading items from storage:", error);
@@ -85,7 +85,7 @@ export const DynamicRenderer = ({
                 style={ styles.buttonAdd }
                 onPress={ () => setModalVisible(true)}
             >
-                <FontAwesomeIcon icon={faPlus} color={globalColors.white} size={24}/>
+                <FontAwesomeIcon icon={faUserPlus} color={globalColors.white} size={24} style={{ top: -1, left: 2}}/>
             </TouchableOpacity>
 
             {/* Modal */}

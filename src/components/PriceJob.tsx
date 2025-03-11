@@ -3,7 +3,6 @@ import { styles } from '../theme/PriceTheme'
 import { Text, TextInput, View } from 'react-native'
 import { HorizontalLine } from './HorizontalLine';
 import { globalColors } from '../theme/GlobalStyles';
-import { LoadData } from '../hooks/LoadData';
 import AsyncStorage from '@react-native-async-storage/async-storage';1
 
 interface PriceJobProps {
@@ -24,7 +23,7 @@ export const PriceJob = ({text, id}: PriceJobProps) => {
           const parsedItem = JSON.parse(item);
           setInitialPrice(parsedItem.price.toString()); // Establece el precio en el estado
         } 
-        setInitialPrice('')
+        // setInitialPrice('asdads')
       } catch (error) {
         console.error('Error al cargar el precio:', error);
       }

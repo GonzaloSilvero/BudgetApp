@@ -1,13 +1,21 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react'
-import { Text } from 'react-native';
-import { SideMenuNavigator } from './src/routes/SideMenuNavigator';
-import { MenuScreen } from './src/screens/MenuScreen';
+import React, { useEffect, useState } from 'react'
+import { StackNavigatorMenu } from './src/routes/StackNavigatorMenu';
+import { IncreasePrices } from './src/hooks/IncreasePrices';
 
-export const App = () => {
+const App = () => {
+
+  const [refresh, setRefresh] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRefresh(!refresh)
+    }, 1000)
+  }, [refresh]);
+  
   return (
     <NavigationContainer>
-      <SideMenuNavigator />
+      <StackNavigatorMenu />
     </NavigationContainer>
   )
 }

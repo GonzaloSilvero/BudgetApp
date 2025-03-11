@@ -32,24 +32,34 @@ export const PriceScreen = () => {
     loadPrice(); // Llama a la función de carga
   }, []);
 
-  const saveDays = async (days: string ) => {
+  const saveCurrentDate = async () => {
+    const today = Date.now();
+    await AsyncStorage.setItem('savedDate', JSON.stringify(today));
+    console.log('Fecha guardada:', today);
+  }
+
+  const saveDays = async (newDays: string ) => {
     try {
+        const parsedDays = parseInt(newDays, 10) || 0; // Asegurar que sea un número
+        const parsedIncrease = parseFloat(increase) || 0;
 
-        await AsyncStorage.setItem(`increase`, JSON.stringify({ days, increase }));
-        setDays(days); // Actualiza el estado local
-        console.log('Precio guardado:', { days, increase });
-
+        await AsyncStorage.setItem(`increase`, JSON.stringify({ days: parsedDays, increase: parsedIncrease }));
+        setDays(newDays); // Actualiza el estado local
+        console.log('Precio guardado:', { days: parsedDays, increase: parsedIncrease });
+        saveCurrentDate();
     } catch (error) {
       console.error('Error al inicializar los elementos:', error);
     }
   };
 
-  const saveIncrease = async (increase: string ) => {
+  const saveIncrease = async (newIncrease: string ) => {
     try {
+      const parsedDays = parseInt(days, 10) || 0;
+      const parsedIncrease = parseFloat(newIncrease) || 0; // Asegurar que sea un número
 
-      await AsyncStorage.setItem(`increase`, JSON.stringify({ days, increase }));
-      setIncrease(increase); // Actualiza el estado local
-      console.log('Precio guardado:', { days, increase });
+      await AsyncStorage.setItem(`increase`, JSON.stringify({ days: parsedDays, increase: parsedIncrease }));
+      setIncrease(newIncrease); // Actualiza el estado local
+      console.log('Precio guardado:', { days: parsedDays, increase: parsedIncrease });
 
     } catch (error) {
       console.error('Error al inicializar los elementos:', error);

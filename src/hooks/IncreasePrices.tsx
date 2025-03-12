@@ -18,27 +18,21 @@ export const IncreasePrices = () => {
                 return false
             }
             
-            const savedTime = JSON.parse(savedTimestamp);
-            if (isNaN(savedTime)) {
-                console.error("Error: La fecha guardada no es válida:", savedTimestamp);
-                return false;
-            }
+            const savedDate = new Date(JSON.parse(savedTimestamp))
+            const today = new Date()
+
+            savedDate.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
             
-            console.log("Fecha recuperada:", new Date(savedTime));
+            console.log("Fecha recuperada:", savedDate);
+
+            const diffTime = today.getTime() - savedDate.getTime();
+            const elapsedDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             
-            const currentTime = Date.now(); // Timestamp actual
-            const daysPassed = (currentTime - savedTime) / (1000 * 60 * 60 * 24); // Convertir ms a días
-            
-            const increaseData = await AsyncStorage.getItem('increase');
-            if (!increaseData) return false; // Si no hay datos de aumento, no actualizar
-            
-            const { days } = JSON.parse(increaseData);
-            const daysToIncrease = parseInt(days, 10); // Convertimos `days` a número
-            
-            console.log('Días transcurridos:', daysPassed);
-            console.log('Días necesarios para actualizar:', daysToIncrease);
-            
-            return daysPassed >= daysToIncrease;
+            console.log('Fecha recuperada:', savedDate.toISOString());
+            console.log('Días transcurridos:', elapsedDays);
+
+            return elapsedDays;
         } catch (error) {
             console.log("Error al recuperar la fecha:", error)
         }

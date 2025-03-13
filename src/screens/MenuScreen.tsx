@@ -7,6 +7,7 @@ import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/n
 import { LoadData } from '../hooks/LoadData'
 import { CalculateItems } from '../hooks/CalculateItems'
 import { IncreasePrices } from '../hooks/IncreasePrices'
+import { ModalAlert } from '../components/ModalAlert'
 
 export const MenuScreen = () => {
 
@@ -15,6 +16,8 @@ export const MenuScreen = () => {
     const [priorityTask, setPriorityTask] = useState(true)
     const [priorityPrice, setPriorityPrice] = useState(true)
     const [refresh, setRefresh] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false);
+
     
     useFocusEffect(
         useCallback(() => {
@@ -69,7 +72,7 @@ export const MenuScreen = () => {
             setTimeout(() => {
                 setRefresh(!refresh)
                 console.log('refresh')
-            }, 10000)
+            }, 500)
             
             updateDataIfNeeded()
             LoadPrices();
@@ -79,27 +82,33 @@ export const MenuScreen = () => {
     )
     
     const createBudget = () => {
-        console.log(disabled)
+        // console.log(disabled)
         if (disabled === false) {
             navigation.navigate('JobsStack')
         } else {
-            // <Modal>
-            //     <View
-            // </Modal>
+            setModalVisible(true)
         }
     }
     
     return (
-        <ScrollView style={{ 
-            ...globalStyles.container,
-            backgroundColor: globalColors.secondary,
-        }}>
-            <Text style={ styles.title }>App Presupuestos</Text>
-            <ButtonMenu onClick={createBudget} text='Crear presupuesto' disabled={disabled}/>
-            <ButtonMenu onClick={() => navigation.navigate('Sueldos')} text='Sueldos' priority={priorityTask}/>
-            <ButtonMenu onClick={() => navigation.navigate('Precios')} text='Precios' priority={priorityPrice}/>
-            <ButtonMenu onClick={() => navigation.navigate('PresupuestosAnteriores')} text='Presupuestos anteriores'/>
-            <ButtonMenu onClick={() => navigation.navigate('Temas')} text='Temas'/>
-        </ScrollView>
+        <>
+            <ModalAlert
+                buttonText='cerrar'
+                message='Primero determina los sueldos y los precios.'
+                onClick={() => setModalVisible(false)}
+                isVisible={modalVisible}
+            />
+            <ScrollView style={{ 
+                ...globalStyles.container,
+                backgroundColor: globalColors.secondary,
+            }}>
+                <Text style={ styles.title }>App Presupuestos</Text>
+                <ButtonMenu onClick={createBudget} text='Crear presupuesto' disabled={disabled}/>
+                <ButtonMenu onClick={() => navigation.navigate('Sueldos')} text='Sueldos' priority={priorityTask}/>
+                <ButtonMenu onClick={() => navigation.navigate('Precios')} text='Precios' priority={priorityPrice}/>
+                <ButtonMenu onClick={() => navigation.navigate('PresupuestosAnteriores')} text='Presupuestos anteriores'/>
+                <ButtonMenu onClick={() => navigation.navigate('Temas')} text='Temas'/>
+            </ScrollView>
+        </>
     )
 }
